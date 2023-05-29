@@ -10,7 +10,7 @@ import NewPost from './Components/NewPost'
 
 const App = () => {
   return (
-    <div>
+    <div className='relative'>
       <Navbar/>
       <Routes>
       <Route path='/' element={<Posts/>} />
@@ -20,7 +20,7 @@ const App = () => {
         <Route path='/post/:id' element={<ParticularPost />} />
         <Route path='/new-post' element={<NewPost/>} />
       </Routes>
-      <Footer/>
+      {/* <Footer className="absolute bottom-2"/> */}
     </div>
   )
 }
