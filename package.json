@@ -1,0 +1,28 @@
+{
+  "name": "full-stack-blog-system-react-node-js-express-js-and-mysql",
+  "version": "1.0.0",
+  "description": "Full stack blog writing project on react node express and MY-SQL including JWT,tailwind,React-router etc",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unique3900/Full-Stack-Blog-System-React-Node-js-Express-js-and-MYSQL.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/unique3900/Full-Stack-Blog-System-React-Node-js-Express-js-and-MYSQL/issues"
+  },
+  "homepage": "https://github.com/unique3900/Full-Stack-Blog-System-React-Node-js-Express-js-and-MYSQL#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.2.1",
+    "nodemon": "^2.0.22"
+  }
+}
