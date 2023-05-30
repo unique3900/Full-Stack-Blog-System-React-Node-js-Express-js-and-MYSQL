@@ -33,7 +33,7 @@ const NewPost = () => {
 
                             <div className="flex flex-row justify-center gap-5">
                                 <button className="bg-teal-600 text-white px-3 py-2 rounded-md text-center cursor-pointer">Keep Draft</button>
-                                <button className="bg-cyan-600 text-white px-3 py-2 rounded-md text-center cursor-pointer">Keep Draft</button>
+                             <label className="bg-cyan-600 text-white px-3 py-2 rounded-md text-center cursor-pointer" >Upload Photo<input type='file'accept="image/*" required hidden/></label>   
                             </div>
                         </div>
 

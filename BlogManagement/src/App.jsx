@@ -20,7 +20,7 @@ const App = () => {
         <Route path='/post/:id' element={<ParticularPost />} />
         <Route path='/new-post' element={<NewPost/>} />
       </Routes>
-      {/* <Footer className="absolute bottom-2"/> */}
+      {/* <Footer className="absolute bottom-0"/> */}
     </div>
   )
 }

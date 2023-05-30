@@ -13,7 +13,7 @@ const Navbar = () => {
               <GiHamburgerMenu  className=' md:hidden lg:hidden scale-125' onClick={() => {
                   navState ? setNavState(false) : setNavState(true)
               }}/>
-              <img src='./img/logo.png' className='w-40 h-12' />
+              <img src='../public/img/logo.png' className='w-40 h-12' />
               {
                   navState && (
                     <ul className="list-none text-white lg:text-black md:text-black flex flex-col md:flex-row lg:flex-row justify-evenly gap-4 font-semibold align-middle">
