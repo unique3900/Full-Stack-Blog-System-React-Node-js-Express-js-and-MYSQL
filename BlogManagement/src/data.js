@@ -54,7 +54,7 @@ export const Products= [
     {
       "id": 4,
       "title": "OPPOF19",
-      "description": "OPPO F19 is officially announced on April 2021.",
+      "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas, quae voluptates! Magnam molestiae voluptas aut, commodi ad facilis, autem dolorem animi eligendi exercitationem incidunt ullam cumque consequuntur, deserunt unde nobis vel dicta minus saepe asperiores repellat neque expedita ea? Provident exercitationem cupiditate unde assumenda pariatur voluptatum magnam nihil aperiam quisquam.",
       "price": 280,
       "discountPercentage": 17.91,
       "rating": 4.3,

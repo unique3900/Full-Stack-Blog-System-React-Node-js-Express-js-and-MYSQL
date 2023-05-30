@@ -7,7 +7,7 @@ const Navbar = () => {
 
     
   return (
-    <div className='w-full bg-[rgba(0,0,0,0.5)] text-white bg-opacity-30 py-5 px-20 md:text-black lg:text-black md:bg-white lg:bg-white'>
+    <div className='w-full z-1 bg-[rgba(0,0,0,0.5)] text-white bg-opacity-30 py-5 px-20 md:text-black lg:text-black md:bg-white lg:bg-white'>
           
           <div className="flex flex-row sticky justify-around align-middle place-items-center">
               <GiHamburgerMenu  className=' md:hidden lg:hidden scale-125' onClick={() => {
