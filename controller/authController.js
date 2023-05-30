@@ -20,9 +20,14 @@ const loginController = (req, res) => {
             
             const {  password, ...other } = data[0];
             const webtoken = jwt.sign({ id: data[0].id }, "SECRETKEY");
-            res.cookie("accessToken", webtoken, {
-                httpOnly:true
-            }).json({ message: "User Validated", other,webtoken });
+            res.cookie("access_token", webtoken, {
+                httpOnly: true,
+                sameSite: 'none',
+                secure: true,
+                maxAge: 24 * 60 * 60 * 1000
+            }).json({ message: "User Validated", other, webtoken });
+            console.log(req.cookies)
+            
         })
     } catch (error) {
         console.log("Internal Server Error" + error);
