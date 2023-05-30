@@ -1,12 +1,24 @@
+import axios from 'axios';
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        console.log(email + password);
+       try {
+           const { data } = await axios.post('http://localhost:8080/api/v1/auth/login', { email, password });
+           console.log(data)
+           if (data.success=true) {
+               navigate('/home');
+           }
+       } catch (error) {
+        
+       }
     }
   return (
     <div className='h-screen flex flex-col justify-center items-center '>

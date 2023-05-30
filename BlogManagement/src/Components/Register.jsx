@@ -9,10 +9,19 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
+    const [err, setErr] = useState({status:false,message:""});
     const handleSubmit = async(e) => {
         e.preventDefault();
+        if (!email || !name || !password) {
+            setErr({status:true,message:"Fill out Every Field"});
+        }
+        setErr({status:true,message:"Success"})
         try {
             const { data } = await axios.post('http://localhost:8080/api/v1/auth/register', { name, email, password });
+            if (!data.success) {
+                setErr({status:true,message:data.message});
+            }
+            setErr({status:true,message:"Success"})
             console.log(data);
          
 
@@ -69,7 +78,7 @@ const Register = () => {
                         className='rounded-xl outline-black w-full px-3 py-2 '
                         name=""
                         id=""
-                        placeholder='Enter Password' required/>
+                        placeholder='Enter Password' />
                 </div>
 
             <div className="flex flex-col gap-2 w-full  py-2">
@@ -81,8 +90,17 @@ const Register = () => {
                    />
             </div>
         </div>
-    </form>
+                </form>
+                {
+                    err.status==false ? (
+                        <p className="text-red-500 font-bold text-center">{err.message}</p>
+                    ):
+                        (
+                            <p className="text-green-500 font-bold text-center">Success! You are Now Registered</p>
 
+                        )
+}
+                
 </div></div>
     )
 }
