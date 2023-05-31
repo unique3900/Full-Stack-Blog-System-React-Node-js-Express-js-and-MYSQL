@@ -29,15 +29,19 @@ const Navbar = () => {
                     <Link className='' to={'/home'}>Technology</Link>
                     <Link className='' to={'/home'}>Foods</Link>
                           <Link className='' to={'/home'}>Science</Link>
-                          <Link className='font-bold  text-white lg:text-teal-600 md:text-teal-600' to={'/new-post'}>New Post</Link>  
+                     
 
               <Link to={'/'}>{currentUsers?currentUsers:"Guest"}</Link>
                    
               {
                 currentUsers ? (
-                  <Link className='text-white bg-red-600 py-1.5 px-2 rounded-md text-center w-20 h-fit' onClick={()=>{
+                  <div className="flex flex-col lg:flex-row md:flex-row gap-2">
+                    <Link className='font-bold  text-white lg:text-teal-600 md:text-teal-600' to={'/new-post'}>New Post</Link>  
+                    <Link className='text-white bg-red-600 py-1.5 px-2 rounded-md text-center w-20 h-fit' onClick={()=>{
                     dispatch(removeUserData())
                 }}>Logout</Link>
+                  </div>
+
                 ) : (
                     <div className="flex flex-col lg:flex-row md:flex-row gap-2">
                         <Link className='text-white bg-blue-600 py-1.5 px-2 rounded-md text-center w-20 h-fit' to={'/login'}>Login</Link>
