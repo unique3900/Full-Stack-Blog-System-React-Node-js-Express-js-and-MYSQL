@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { removeUserData, setUserData } from '../Redux/Slice/authSlice';
 
 const Login = () => {
-
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -13,7 +15,10 @@ const Login = () => {
         try {
 
            const { data } = await axios.post('http://localhost:8080/api/v1/auth/login', { email, password },{withCredentials: true});
-           console.log(data)
+            console.log(data.otherData);
+            dispatch(setUserData(data.otherData));
+            // localStorage.setItem('userData', JSON.stringify(data.otherData));
+            
 
        } catch (error) {
         
@@ -45,7 +50,7 @@ const Login = () => {
                       </div>
                   </div>
               </form>
-              
+
      </div>
     </div>
   )

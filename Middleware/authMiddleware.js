@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const generateToken = (res, userId) => {
+const generateToken = (res, userId,otherData) => {
     console.log(userId);
     const token = jwt.sign({
         userId
@@ -14,7 +14,7 @@ const generateToken = (res, userId) => {
         sameSite: 'none',
         secure: false,
         maxAge: 24 * 60 * 60 * 1000
-    })
+    }).json({ success: true, message: "Successfully Generated access token",otherData });
 
 
 
@@ -23,8 +23,13 @@ const authProtect = (req, res, next) => {
     const token = req.cookies.access_token;
     if (token) {
         try {
-            console.log("My token" + token);
-            next();
+            jwt.verify(token, "JWTSECRET", (err, userInfo) => {
+                if (err) return res.json({ success: false, message: "Error in authenticating token",err });
+                req.user = userInfo;
+                next();
+        });
+        
+           
         } catch (error) {
             console.log("Internal server error at token")
         }

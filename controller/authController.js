@@ -20,10 +20,9 @@ const loginController = (req, res) => {
                 return res.json({success:false,message:"Incorrect Password!"})
             
             const {  password, ...other } = data[0];
-            generateToken(res, data[0].id);
+            generateToken(res, data[0].id,other);
             
-            res.send(other)
-            console.log(req.cookies)
+           
             
             
             
@@ -60,6 +59,7 @@ const registerController = (req, res) => {
 
 const changePasswordController = (req, res) => {
     res.send("Change Password Controller");
+    console.log(req.user)
 }
 const logoutController = (req, res) => {
     try {
