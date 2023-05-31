@@ -2,6 +2,7 @@
 const { connection } = require("../DB/conn");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { generateToken } = require("../Middleware/authMiddleware");
 const loginController = (req, res) => {
     try {
         
@@ -19,14 +20,13 @@ const loginController = (req, res) => {
                 return res.json({success:false,message:"Incorrect Password!"})
             
             const {  password, ...other } = data[0];
-            const webtoken = jwt.sign({ id: data[0].id }, "SECRETKEY");
-            res.cookie("access_token", webtoken, {
-                httpOnly: true,
-                sameSite: 'none',
-                secure: true,
-                maxAge: 24 * 60 * 60 * 1000
-            }).json({ message: "User Validated", other, webtoken });
+            generateToken(res, data[0].id);
+            
+            res.send(other)
             console.log(req.cookies)
+            
+            
+            
             
         })
     } catch (error) {
@@ -58,6 +58,19 @@ const registerController = (req, res) => {
     }
 }
 
+const changePasswordController = (req, res) => {
+    res.send("Change Password Controller");
+}
+const logoutController = (req, res) => {
+    try {
+        res.cookie('access_token', '', {
+            httpOnly: true,
+            expires: new Date(0)
+        }).json({message:"User Logged Out"})
+    } catch (error) {
+        console.log("Internal Server Error" + error);
+    }
+}
 
 
-module.exports={loginController,registerController}
+module.exports={loginController,registerController,changePasswordController,logoutController}
