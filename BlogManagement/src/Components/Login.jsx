@@ -17,7 +17,7 @@ const Login = () => {
            const { data } = await axios.post('http://localhost:8080/api/v1/auth/login', { email, password },{withCredentials: true});
             console.log(data.otherData);
             dispatch(setUserData(data.otherData));
-            // localStorage.setItem('userData', JSON.stringify(data.otherData));
+           
             
 
        } catch (error) {

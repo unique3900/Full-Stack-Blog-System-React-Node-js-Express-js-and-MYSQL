@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { GiHamburgerMenu } from 'react-icons/gi';
-const Navbar = () => {
-    const [navState, setNavState] = useState(true);
+import { useDispatch, useSelector } from 'react-redux';
+import { removeUserData } from '../Redux/Slice/authSlice';
 
+const Navbar = () => {
+  const [navState, setNavState] = useState(true);
+  const dispatch = useDispatch();
+  var currentUsers = useSelector((state) => state.auth.currentuser);
+
+
+  
 
     
   return (
@@ -23,9 +30,23 @@ const Navbar = () => {
                     <Link className='' to={'/home'}>Foods</Link>
                           <Link className='' to={'/home'}>Science</Link>
                           <Link className='font-bold  text-white lg:text-teal-600 md:text-teal-600' to={'/new-post'}>New Post</Link>  
-                          
-                    <Link className='text-white bg-blue-600 py-1.5 px-2 rounded-md text-center w-20 h-fit' to={'/login'}>Login</Link>
-                    <Link className='text-white bg-blue-600 py-1.5 px-2 rounded-md text-center w-20 h-fit' to={'/register'}>Register</Link>
+
+              <Link to={'/'}>{currentUsers?currentUsers:"Guest"}</Link>
+                   
+              {
+                currentUsers ? (
+                  <Link className='text-white bg-red-600 py-1.5 px-2 rounded-md text-center w-20 h-fit' onClick={()=>{
+                    dispatch(removeUserData())
+                }}>Logout</Link>
+                ) : (
+                    <div className="flex flex-col lg:flex-row md:flex-row gap-2">
+                        <Link className='text-white bg-blue-600 py-1.5 px-2 rounded-md text-center w-20 h-fit' to={'/login'}>Login</Link>
+                  <Link className='text-white bg-blue-600 py-1.5 px-2 rounded-md text-center w-20 h-fit' to={'/register'}>Register</Link>
+                    </div>
+                  
+                )
+                    }
+
                 </ul>
                   )
               }
