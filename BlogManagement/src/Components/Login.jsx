@@ -17,6 +17,7 @@ const Login = () => {
            const { data } = await axios.post('http://localhost:8080/api/v1/auth/login', { email, password },{withCredentials: true});
             if (data.success) {
                 dispatch(setUserData(data.otherData));
+                navigate('/');
             }
            
            

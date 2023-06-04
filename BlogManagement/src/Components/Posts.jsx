@@ -1,15 +1,51 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Products
 } from '../data';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 const Posts = () => {
     const navigate = useNavigate();
+    const [posts, setPosts] = useState([]);
+   
+
+    const location = useLocation().search;
+
+
+    useEffect(() => {
+
+        console.log(location)
+        const fetchAllPost = async () => {
+            try {
+    
+                const { data } = await axios.get(`http://localhost:8080/api/v1/blog/posts${location}`);
+                if (data) {
+                    setPosts(data.value);
+                    console.log(data)
+                }
+                else {
+                    console.log("Error Fetching data");
+                }
+            } catch (error) {
+                console.log("Internal Server Error")
+            }
+           
+        }
+        fetchAllPost();
+    }, [location])
+    
     return (
         <div className="flex flex-col justify-center items-center py-3">
             <div className="flex flex-col  flex-grow gap-10 w-3/4 lg:w-2.5/4">
+                {
+                    posts.map((item, index) => {
+                        return (
+                            <h1 key={index}>{item.title}</h1>
+                        )
+                    })
+                }
                 {
                 Products.map((item) => {
                     return (

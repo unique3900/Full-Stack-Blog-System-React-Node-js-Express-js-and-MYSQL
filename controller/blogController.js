@@ -1,7 +1,16 @@
+const { connection } = require("../DB/conn");
 
 
-const getAllPostController = (req, res) => {
-    res.send("Hey");
+const getPostController = (req, res) => {
+    try {
+        const q = req.query.category ? "SELECT * FROM  posts where category=?" : "SELECT * FROM  posts";
+        connection.query(q, [req.query.category], (err, value) => {
+            if (err) return res.json({ success: false, message: "Error when fetching data" });
+            res.json({ success: true, message: "Posts fetched", value });
+        })
+    } catch (error) {
+        
+    }
 }
 
 const getOnePostController = (req, res) => {
@@ -17,4 +26,4 @@ const updatePostController = (req, res) => {
     res.send("Hey");
 }
 
-module.exports = { getAllPostController,getOnePostController,createPostController,deltePostController,updatePostController };
+module.exports = { getPostController,getOnePostController,createPostController,deltePostController,updatePostController };

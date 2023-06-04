@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeUserData } from '../Redux/Slice/authSlice';
 
 const Navbar = () => {
   const [navState, setNavState] = useState(true);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   var currentUsers = useSelector((state) => state.auth.currentuser);
 
@@ -25,10 +26,10 @@ const Navbar = () => {
                   navState && (
                     <ul className="list-none text-white lg:text-black md:text-black flex flex-col md:flex-row lg:flex-row justify-evenly gap-4 font-semibold align-middle">
                     <Link className='' to={'/home'}>Home</Link>
-                    <Link className='' to={'/home'}>Travel</Link>
-                    <Link className='' to={'/home'}>Technology</Link>
-                    <Link className='' to={'/home'}>Foods</Link>
-                          <Link className='' to={'/home'}>Science</Link>
+                    <Link className='' to={'/?category=travel'}>Travel</Link>
+                    <Link className='' to={'/?category=technology'}>Technology</Link>
+                    <Link className='' to={'/?category=foods'}>Foods</Link>
+                          <Link className='' to={'/?category=science'}>Science</Link>
                      
 
               <Link to={'/'}>{currentUsers?currentUsers:"Guest"}</Link>
@@ -36,9 +37,11 @@ const Navbar = () => {
               {
                 currentUsers ? (
                   <div className="flex flex-col lg:flex-row md:flex-row gap-2">
-                    <Link className='font-bold  text-white lg:text-teal-600 md:text-teal-600' to={'/new-post'}>New Post</Link>  
-                    <Link className='text-white bg-red-600 py-1.5 px-2 rounded-md text-center w-20 h-fit' onClick={()=>{
-                    dispatch(removeUserData())
+                    <Link className='font-bold  text-white lg:text-teal-600 md:text-teal-600' to={'/new-post'}>Write Post</Link>  
+                    <Link className='text-white bg-red-600 py-1.5 px-2 rounded-md text-center w-20 h-fit' onClick={() => {
+                        navigate('/login');
+                      dispatch(removeUserData());
+                    
                 }}>Logout</Link>
                   </div>
 
