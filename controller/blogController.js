@@ -9,12 +9,21 @@ const getPostController = (req, res) => {
             res.json({ success: true, message: "Posts fetched", value });
         })
     } catch (error) {
-        
+        res.json({ success: false, message: "Internal Server Error" });
     }
 }
 
 const getOnePostController = (req, res) => {
-    res.send("Hey");
+    try {
+        
+        const q = "SELECT * FROM  posts where id=?";
+        connection.query(q, [req.params.id], (err, value) => {
+            if (err) return res.json({ success: false, message: "Error when fetching data" });
+            res.json({ success: true, message: "Posts fetched", value });
+        })
+    } catch (error) {
+        res.json({ success: false, message: "Internal Server Error" });
+    }
 }
 const createPostController = (req, res) => {
     res.send("Hey");
