@@ -5,6 +5,14 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 const NewPost = () => {
     const [value, setValue] = useState("");
+    const [title, setTitle] = useState("");
+    const [desc, setDesc] = useState("");
+    const [img, setImg] = useState("");
+    const [category, setCategory] = useState("");
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    }
     return (
         <>
             <div className="mt-5">
@@ -57,7 +65,7 @@ const NewPost = () => {
                             </div>
 
               </div>
-              <button className="w-full bg-blue-700 text-white outline-none py-3 px-3 mt-5">Publish</button>
+              <button className="w-full bg-blue-700 text-white outline-none py-3 px-3 mt-5" onClick={handleSubmit}>Publish</button>
                     </div>
                 </div>
 

@@ -5,14 +5,15 @@ import {
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai'
-import {useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import moment from 'moment';
 
 const ParticularPost = () => {
   const navigate = useNavigate();
   const params = useParams();
   const [posts, setPosts] = useState([]);
   const [postId, setPostId] = useState('');
-  const [curUid, setcurUid] = useState('');
+  const [postMoment, setPostMoment] = useState('');
  
 
   const location = useLocation();
@@ -25,38 +26,60 @@ const ParticularPost = () => {
     setPostId(location.pathname.split('/')[2]);
   
 
-      const fetchAllPost = async () => {
-          try {
+    const fetchAllPost = async () => {
+      try {
   
-              const { data } = await axios.get(`http://localhost:8080/api/v1/blog/post/${params.id}`);
-            setPosts(data.value)
-            setcurUid(data.value[0].uid);
-          
-          } catch (error) {
-              console.log("Internal Server Error"+error)
-          }
+        const { data } = await axios.get(`http://localhost:8080/api/v1/blog/post/${params.id}`);
+        if (data.success) {
+          console.log(data.datas)
+          setPosts(data.datas);
          
+        }
+        
+
+         
+          
+      } catch (error) {
+        console.log("Internal Server Error" + error)
       }
-      fetchAllPost();
-  }, [])
+         
+    }
+    fetchAllPost();
+  }, []);
+
+  const handleDelete = async(id) => {
+    try {
+      const { data } = await axios.delete(`http://localhost:8080/api/v1/blog/delete-post/${id}`,{uid:currentUsers});
+     
+        console.log(data)
+       
+
+
+    } catch (error) {
+      console.log("Client Delete Error", error);
+    }
+  }
+
   return (
     <div className='grid grid-flow-row items-start py-10 w-[100%] px-20 lg:grid-flow-col lg:grid-cols-[3fr,1fr] justify-evenly gap-5'>
       <div className="w-full flex flex-col gap-2 shadow-md p-10">
-        <div className="">
-            <h3 className="text-4xl font-bold">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, reprehenderit.</h3>
-        </div>
         <div className="px-3 py-2">
           <img src="https://i.dummyjson.com/data/products/4/thumbnail.jpg" className='w-full h-96' alt="" />
         </div>
-        <div className="py-2 flex flex-row justify-around">
-          <p className="text-xl font-bold">Author : Parashar Neupane</p>
-          <p className="text-lg italic text-gray-500">2022/10/02</p>
+        <div className="">
+          <h3 className="text-4xl font-bold text-center">{posts.title}</h3>
+        </div>
+        <div className="py-2 flex flex-row justify-start gap-20 items-center">
+          <p className="text-xl font-bold">Author : {posts.name}</p>
+          <p className="text-lg italic text-gray-500 capitalize">Posted : {moment(posts.date).fromNow() }</p>
         </div>
         {
-          currentUsers == curUid? (
+          currentUsers == posts.id? (
             <div className="py-2 flex flex-row justify-end gap-10 px-10">
             <AiFillEdit  className='scale-150 text-green-800 cursor-pointer'/>
-              <AiFillDelete className='scale-150 text-red-800 cursor-pointer' />
+              <AiFillDelete className='scale-150 text-red-800 cursor-pointer' onClick={() => {
+                handleDelete(posts.idey)
+              }} />
              
           </div>
           ) : ""
