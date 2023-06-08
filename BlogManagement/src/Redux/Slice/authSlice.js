@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { config } from "dotenv";
 
 
 
@@ -6,7 +8,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        userData: localStorage.getItem('userData')? JSON.parse(localStorage.getItem('userData')) : null,
+        userData: localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null,
+        userToken: localStorage.getItem('access_token')? JSON.parse(localStorage.getItem('access_token')) : null,
+        headerToken: null,
         currentuser: localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')).name : null,
         currentUserId:localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')).id : null,
     },
@@ -17,15 +21,22 @@ const authSlice = createSlice({
             state.currentuser = state.userData.name;
             state.currentUserId = state.userData.id;
         },
+        setuserAccess: (state, action) => {
+            state.userToken = action.payload;
+            localStorage.setItem('access_token', JSON.stringify(state.userToken));
+            state.headerToken = action.payload;
+           
+        },
 
         removeUserData: (state) => {
             state.userData = null;
             state.currentuser = null;
             localStorage.removeItem('userData');
+            localStorage.removeItem('access_token');
             state.currentUserId = null;
         }
     }
 })
 
 export default authSlice.reducer;
-export const { setUserData, removeUserData,currentUser } = authSlice.actions;
+export const { setUserData, removeUserData,currentUser,setuserAccess } = authSlice.actions;

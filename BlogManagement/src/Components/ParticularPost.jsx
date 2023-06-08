@@ -20,6 +20,7 @@ const ParticularPost = () => {
 
   const currentUsers = useSelector((state) => state.auth.currentUserId);
 
+  const accessToken = useSelector((state) => state.auth.userToken);
   useEffect(() => {
   
     console.log(currentUsers)
@@ -29,6 +30,8 @@ const ParticularPost = () => {
     const fetchAllPost = async () => {
       try {
   
+        console.log(">>>>>", accessToken);
+        console.log(accessToken)
         const { data } = await axios.get(`http://localhost:8080/api/v1/blog/post/${params.id}`);
         if (data.success) {
           console.log(data.datas)
@@ -49,7 +52,16 @@ const ParticularPost = () => {
 
   const handleDelete = async(id) => {
     try {
-      const { data } = await axios.delete(`http://localhost:8080/api/v1/blog/delete-post/${id}`,{uid:currentUsers});
+      axios.interceptors.request.use(
+        config => {
+            config.headers.authorization = accessToken;
+            return config;
+        },
+        error => {
+            return Promise.reject(error);
+        }
+   )
+      const { data } = await axios.delete(`http://localhost:8080/api/v1/blog/delete-post/${id}/${currentUsers}`);
      
         console.log(data)
        

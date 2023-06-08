@@ -20,9 +20,22 @@ const loginController = (req, res) => {
                 return res.json({success:false,message:"Incorrect Password!"})
             
             const {  password, ...other } = data[0];
-            generateToken(res, data[0].id,other);
-            
-           
+            // const token=generateToken(res, data[0].id,other);
+     
+            const userId = data[0].id;
+            const token = jwt.sign({
+                userId
+            }, "JWTSECRET", {
+                expiresIn: '2d'
+        
+            });
+        
+            res.cookie("access_token", token, {
+                httpOnly: true,
+                sameSite: 'none',
+                secure: false,
+                maxAge: 24 * 60 * 60 * 1000
+            }).cookie('DemoSSSS', 'denioiw8w').json({ success: true, message: "Successfully Generated access token",other,token });
             
             
             

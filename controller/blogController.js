@@ -31,11 +31,10 @@ const createPostController = (req, res) => {
 }
 const deltePostController = (req, res) => {
     try {
+        const uid  = req.params.uid;
         const postId = req.params.id;
-        const { uid } = req.body;
         console.log(uid)
-        console.log(req.body.uid)
-        const query = "Delete from posts where `id`=? AND `uid`=?";
+        const query = "Delete  from posts where `id`=? AND `uid`=?";
         connection.query(query, [postId, uid], (err, value) => {
             if (err) return res.json({ success: false, message: "Error while deleting", err });
             res.json({ success: true, message: "Successfully Deleted", value });

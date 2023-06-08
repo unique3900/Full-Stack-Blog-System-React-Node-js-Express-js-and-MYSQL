@@ -2,21 +2,23 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { removeUserData, setUserData } from '../Redux/Slice/authSlice';
+import { removeUserData, setUserData, setuserAccess } from '../Redux/Slice/authSlice';
 
 const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
+    const accessToken = useSelector((state) => state.auth.userToken);
     const handleSubmit = async(e) => {
         e.preventDefault();
         try {
 
            const { data } = await axios.post('http://localhost:8080/api/v1/auth/login', { email, password },{withCredentials: true});
             if (data.success) {
-                dispatch(setUserData(data.otherData));
+                
+                dispatch(setUserData(data.other));
+                dispatch(setuserAccess(data.token)); 
                 navigate('/');
             }
            
