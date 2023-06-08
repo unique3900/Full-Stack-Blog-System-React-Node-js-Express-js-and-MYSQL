@@ -39,7 +39,8 @@ const Navbar = () => {
                   <div className="flex flex-col lg:flex-row md:flex-row gap-2">
                     <Link className='font-bold  text-white lg:text-teal-600 md:text-teal-600' to={'/new-post'}>Write Post</Link>  
                     <Link className='text-white bg-red-600 py-1.5 px-2 rounded-md text-center w-20 h-fit' onClick={() => {
-                        navigate('/login');
+                      navigate('/login');
+                      location.reload();
                       dispatch(removeUserData());
                     
                 }}>Logout</Link>

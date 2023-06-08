@@ -48,7 +48,7 @@ const Posts = () => {
                                 <h2 className="text-4xl text-center font-bold">{item.title }</h2>
                             </div>
                             <div className="w-full">
-                                <img src={item.image} className='w-full h-96 object-cover' alt=""/>
+                                <img src='https://cdn.britannica.com/98/235798-050-3C3BA15D/Hamburger-and-french-fries-paper-box.jpg' className='w-full h-96 object-cover' alt=""/>
                             </div>
 
                             <div className="p-3 flex flex-row justify-between gap-20 w-fit">

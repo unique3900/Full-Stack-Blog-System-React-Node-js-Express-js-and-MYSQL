@@ -7,6 +7,7 @@ import Register from './Components/Register'
 import Posts from './Components/Posts'
 import ParticularPost from './Components/ParticularPost'
 import NewPost from './Components/NewPost'
+import ProtectedRoute from './Components/ProtectedRoute'
 
 const App = () => {
   return (
@@ -18,7 +19,10 @@ const App = () => {
         <Route path='/register' element={<Register/>} />
         <Route path='/home' element={<Posts />} />
         <Route path='/post/:id' element={<ParticularPost />} />
+        
+        <Route path='/' element={<ProtectedRoute/>} >
         <Route path='/new-post' element={<NewPost/>} />
+        </Route>
       </Routes>
       {/* <Footer className="absolute bottom-0"/> */}
     </div>

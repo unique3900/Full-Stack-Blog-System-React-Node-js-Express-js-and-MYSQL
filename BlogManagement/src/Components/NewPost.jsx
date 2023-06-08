@@ -3,7 +3,12 @@ import React, {
 } from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { useSelector } from 'react-redux';
+
+
 const NewPost = () => {
+    const accessToken = useSelector((state) => state.auth.userToken);
+    const log=useSelector((state)=>state.auth.headerToken)
     const [value, setValue] = useState("");
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
@@ -17,6 +22,7 @@ const NewPost = () => {
         <>
             <div className="mt-5">
                 <h2 className="text-center text-4xl font-bold">Write New Article</h2>
+
             </div>
             <div className='grid grid-flow-row mt-10 lg:grid-flow-col grid-cols-80/20 place-items-start px-20 gap-10'>
                 <div className="w-full shadow-md flex flex-col gap-5 px-5 py-10">

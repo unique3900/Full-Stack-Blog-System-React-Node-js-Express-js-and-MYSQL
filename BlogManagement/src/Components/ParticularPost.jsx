@@ -16,16 +16,18 @@ const ParticularPost = () => {
   const [postMoment, setPostMoment] = useState('');
  
 
+  
   const location = useLocation();
 
   const currentUsers = useSelector((state) => state.auth.currentUserId);
 
   const accessToken = useSelector((state) => state.auth.userToken);
+  
   useEffect(() => {
   
     console.log(currentUsers)
     setPostId(location.pathname.split('/')[2]);
-  
+   
 
     const fetchAllPost = async () => {
       try {
@@ -63,7 +65,9 @@ const ParticularPost = () => {
    )
       const { data } = await axios.delete(`http://localhost:8080/api/v1/blog/delete-post/${id}/${currentUsers}`);
      
-        console.log(data)
+      if (data.success) {
+        navigate('/');
+       }
        
 
 
@@ -74,6 +78,7 @@ const ParticularPost = () => {
 
   return (
     <div className='grid grid-flow-row items-start py-10 w-[100%] px-20 lg:grid-flow-col lg:grid-cols-[3fr,1fr] justify-evenly gap-5'>
+     
       <div className="w-full flex flex-col gap-2 shadow-md p-10">
         <div className="px-3 py-2">
           <img src="https://i.dummyjson.com/data/products/4/thumbnail.jpg" className='w-full h-96' alt="" />
