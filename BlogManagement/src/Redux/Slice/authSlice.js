@@ -10,7 +10,9 @@ const authSlice = createSlice({
     initialState: {
         userData: localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null,
         userToken: localStorage.getItem('access_token')? JSON.parse(localStorage.getItem('access_token')) : null,
-        headerToken: false,
+        headerToken: {
+            status:false
+        },
         currentuser: localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')).name : null,
         currentUserId:localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')).id : null,
     },
@@ -20,11 +22,12 @@ const authSlice = createSlice({
             localStorage.setItem('userData', JSON.stringify(state.userData));
             state.currentuser = state.userData.name;
             state.currentUserId = state.userData.id;
+            state.headerToken.status = true;
         },
         setuserAccess: (state, action) => {
             state.userToken = action.payload;
             localStorage.setItem('access_token', JSON.stringify(state.userToken));
-            state.headerToken = true;
+            state.headerToken.status = true;
         },
 
         removeUserData: (state) => {

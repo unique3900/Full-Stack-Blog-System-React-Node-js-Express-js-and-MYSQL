@@ -17,6 +17,17 @@ const NewPost = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (title.length < 20) {
+            console.log("Title Should be above 20 characters in length")
+        }
+        if (value.length < 200) {
+            console.log("Description Should be above 20 characters in length")
+        }
+        if (!category) {
+            console.log("Category is Required")
+        }
+
+        console.log(title, value, img, category);
     }
     return (
         <>
@@ -27,7 +38,9 @@ const NewPost = () => {
             <div className='grid grid-flow-row mt-10 lg:grid-flow-col grid-cols-80/20 place-items-start px-20 gap-10'>
                 <div className="w-full shadow-md flex flex-col gap-5 px-5 py-10">
                     <div className="">
-                        <input type="text" name="" id="" className='w-full bg-gray-50 border border-gray-300 outline-grey-600 py-4 px-3 rounded-md' placeholder='Title Goes Here'/>
+                        <input type="text" name="" id="" className='w-full bg-gray-50 border border-gray-300 outline-grey-600 py-4 px-3 rounded-md' value={title} onChange={(e)=>{
+                            setTitle(e.target.value)
+                        }} placeholder='Title Goes Here'/>
                     </div>
                     <ReactQuill theme='snow'
                         value={value}
@@ -45,9 +58,15 @@ const NewPost = () => {
                                 <span className="italic px-3 text-gray-500">Private</span>
                             </p>
 
-                            <div className="flex flex-row justify-center gap-5">
+                            <div className="flex flex-row justify-around gap-5">
                                 <button className="bg-teal-600 text-white px-3 py-2 rounded-md text-center cursor-pointer">Keep Draft</button>
-                             <label className="bg-cyan-600 text-white px-3 py-2 rounded-md text-center cursor-pointer" >Upload Photo<input type='file'accept="image/*" required hidden/></label>   
+                                <div className="flex flex-row gap-3 justify-end items-center">
+                                    <label className=" text-black px-3 py-2 rounded-md text-center cursor-not-allowed " disabled>Upload Photo:</label>
+                                    <input type='file' accept="image/*" onChange={(e) => {
+                                    setImg(e.target.files[0])
+                             }} required />  
+                                </div>
+             
                             </div>
                         </div>
 
@@ -58,16 +77,49 @@ const NewPost = () => {
                         <h3 className="text-center text-2xl font-bold text-teal-600">Category</h3>
                         <div className="flex flex-col justify-start items-start gap-2">
                             <div className="flex flex-row gap-2">
-                                <input type="radio" name="category" id="" className=""/>
+                                <input type="radio" value='science'  name="category" id="" className="" onChange={
+                                    (e) => {
+                                        setCategory(e.target.value)
+                                    }
+                                    
+                                }/>
                                 <label htmlFor="" className="text-lg">Science</label>
                             </div>
                             <div className="flex flex-row gap-2">
-                                <input type="radio" name="category" id="" className=""/>
+                                <input type="radio" value='science' name="category" id="" className="" onChange={
+                                    (e) => {
+                                        setCategory(e.target.value)
+                                    }
+                                    
+                                } defaultChecked/>
                                 <label htmlFor="" className="text-lg">Society</label>
                             </div>
                             <div className="flex flex-row gap-2">
-                                <input type="radio" name="category" id="" className=""/>
+                                <input type="radio" value='science' name="category" id="" className="" onChange={
+                                    (e) => {
+                                        setCategory(e.target.value)
+                                    }
+                                    
+                                }/>
                                 <label htmlFor="" className="text-lg">Technology</label>
+                            </div>
+                            <div className="flex flex-row gap-2">
+                                <input type="radio" value='travel' name="category" id="" className="" onChange={
+                                    (e) => {
+                                        setCategory(e.target.value)
+                                    }
+                                    
+                                }/>
+                                <label htmlFor="" className="text-lg">Travel</label>
+                            </div>
+                            <div className="flex flex-row gap-2">
+                                <input type="radio" value='food' name="category" id="" className="" onChange={
+                                    (e) => {
+                                        setCategory(e.target.value)
+                                    }
+                                    
+                                }/>
+                                <label htmlFor="" className="text-lg">Food</label>
                             </div>
 
               </div>
