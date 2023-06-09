@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {
     Products
 } from '../data';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai'
 import { useSelector } from 'react-redux';
@@ -84,7 +84,7 @@ const ParticularPost = () => {
           <img src="https://i.dummyjson.com/data/products/4/thumbnail.jpg" className='w-full h-96' alt="" />
         </div>
         <div className="">
-          <h3 className="text-4xl font-bold text-center">{posts.title}</h3>
+          <h3 className="text-4xl font-bold text-center">{posts.title} </h3>
         </div>
         <div className="py-2 flex flex-row justify-start gap-20 items-center">
           <p className="text-xl font-bold">Author : {posts.name}</p>
@@ -93,7 +93,7 @@ const ParticularPost = () => {
         {
           currentUsers == posts.id? (
             <div className="py-2 flex flex-row justify-end gap-10 px-10">
-            <AiFillEdit  className='scale-150 text-green-800 cursor-pointer'/>
+           <Link to={`/new-post/${posts.idey}`} state={posts}><AiFillEdit  className='scale-150 text-green-800 cursor-pointer'/></Link> 
               <AiFillDelete className='scale-150 text-red-800 cursor-pointer' onClick={() => {
                 handleDelete(posts.idey)
               }} />
@@ -103,7 +103,7 @@ const ParticularPost = () => {
         }
 
         <div className="py-2">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam porro eum dignissimos dolore totam consectetur cupiditate vero nobis voluptatum excepturi. Deleniti facilis assumenda quisquam autem iusto minus placeat ipsum eos, tenetur eligendi recusandae aspernatur illo amet exercitationem? Necessitatibus, eos vero corrupti ea explicabo non iusto, officia aperiam similique quaerat maxime? Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci cumque alias, possimus nisi blanditiis soluta debitis ratione inventore itaque, architecto tempora minima earum, rem voluptate expedita eaque assumenda. Minima, amet! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum distinctio sed tenetur, cupiditate illo corrupti consectetur est dolor labore aperiam iste perferendis harum voluptates, vero cumque suscipit consequatur deleniti quasi repellat natus alias explicabo. Totam saepe consectetur dolore. Laboriosam eius esse saepe tenetur, ipsa numquam. Quasi cupiditate laudantium quisquam explicabo vero sit optio enim beatae cumque quod porro veniam tempore maxime ipsa, totam maiores harum mollitia! Quis, est, officiis possimus obcaecati eum pariatur quisquam quae voluptatem nemo dolore ea debitis asperiores animi ab nostrum repudiandae eius in corporis totam quo eos velit, molestias dignissimos! Dignissimos ea ullam placeat tempora blanditiis!
+           {posts.description}
         </div>
 
       </div>

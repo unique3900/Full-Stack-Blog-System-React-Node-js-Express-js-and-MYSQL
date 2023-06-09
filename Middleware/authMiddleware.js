@@ -5,7 +5,7 @@ const store = require('store');
 const authProtect = (req, res, next) => {
    
     try {
-        console.log(req.headers.authorization);
+        // console.log(req.headers.authorization);
             jwt.verify(req.headers.authorization, "JWTSECRET", (err, userInfo) => {
                 if (err) return res.json({ success: false, message: "Error in authenticating token",err });
                 next();

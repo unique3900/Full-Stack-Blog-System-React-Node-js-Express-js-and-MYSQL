@@ -5,9 +5,9 @@ const cors = require('cors');
 const router = express();
 router.use(cors());
 router.get('/posts', getPostController);
-router.get('/post/:id', getOnePostController);
-router.post('/new-post', createPostController);
-router.post('/update-post/:id',authProtect, updatePostController);
+router.get('/post/:id',authProtect, getOnePostController);
+router.post('/new-post',authProtect, createPostController);
+router.put('/update-post/:id/:uid',authProtect, updatePostController);
 router.delete('/delete-post/:id/:uid', authProtect, deltePostController);
 
 module.exports = router;

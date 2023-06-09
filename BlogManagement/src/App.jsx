@@ -21,7 +21,8 @@ const App = () => {
         <Route path='/post/:id' element={<ParticularPost />} />
         
         <Route path='/' element={<ProtectedRoute/>} >
-        <Route path='/new-post' element={<NewPost/>} />
+          <Route path='/new-post' element={<NewPost />} />
+          <Route path='/new-post/:id' element={<NewPost/>} />
         </Route>
       </Routes>
       {/* <Footer className="absolute bottom-0"/> */}

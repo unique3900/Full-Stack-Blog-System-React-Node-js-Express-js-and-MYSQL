@@ -27,7 +27,20 @@ const getOnePostController = (req, res) => {
     }
 }
 const createPostController = (req, res) => {
-    res.send("Hey");
+    try {
+        const query = "INSERT INTO posts (`title`,`description`,`image`,`category`,`uid`) VALUES (?)";
+        console.log(req.body)
+        const requestVals = [req.body.title, req.body.value, req.body.imageUrl, req.body.category,req.body.currentUsers];
+        connection.query(query, [requestVals], (err, val) => {
+            if (err) res.json({ success: false, message: "Couldnot Add Data", err });
+            res.json({ success: true, message: "Data Added Successfully", val })
+        })
+
+        
+    
+   } catch (error) {
+       res.json({ success: false, message: "internal server error", error });
+   }
 }
 const deltePostController = (req, res) => {
     try {
@@ -47,10 +60,19 @@ const deltePostController = (req, res) => {
 }
 const updatePostController = (req, res) => {
     try {
-       
+        const query = "UPDATE posts set `title`=?,`description`=?,`image`=?,`category`=? where `id`=? AND `uid`=?";
+        console.log(req.body.imageUrl)
+        const requestVals = [req.body.title, req.body.value, req.body.imageUrl, req.body.category];
+        connection.query(query, [...requestVals, req.params.id, req.params.uid], (err, val) => {
+            if (err) return res.json({ success: false, message: "Couldnot Update Data", err });
+            res.json({ success: true, message: "Data Updated Successfully", val })
+        })
+
+        
     
    } catch (error) {
-       res.json({ success: false, message: "internal server error", error });
+        res.json({ success: false, message: "internal server error", error });
+        console.log(error)
    }
 }
 
