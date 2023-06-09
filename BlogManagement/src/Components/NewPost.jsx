@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, {
     useState
 } from 'react'
@@ -13,21 +14,40 @@ const NewPost = () => {
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
     const [img, setImg] = useState("");
+    const [imgurl, setImgUrl] = useState("");
     const [category, setCategory] = useState("");
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (title.length < 20) {
-            console.log("Title Should be above 20 characters in length")
-        }
-        if (value.length < 200) {
-            console.log("Description Should be above 20 characters in length")
-        }
-        if (!category) {
-            console.log("Category is Required")
+
+    const uploadImage = async () => {
+        try {
+            const formData = new FormData();
+            formData.append("image", img);
+            const {data} = await axios.post('http://localhost:8080/api/v1/file/imageUpload',formData);
+            return data.fileLink;
+
+        } catch (error) {
+            console.log(error)
         }
 
-        console.log(title, value, img, category);
+    }
+    const handleSubmit =async (e) => {
+        e.preventDefault();
+        try {
+            if (title.length < 20) {
+                console.log("Title Should be above 20 characters in length")
+            }
+            if (value.length < 200) {
+                console.log("Description Should be above 20 characters in length")
+            }
+            if (!category) {
+                console.log("Category is Required")
+            }
+            const imageUrl = await uploadImage();
+            console.log(imageUrl)
+        } catch (error) {
+            console.log(error)
+        }
+
     }
     return (
         <>
